@@ -8219,7 +8219,10 @@ in
 
   you-get = python3Packages.callPackage ../tools/misc/you-get { };
 
+
   zasm = callPackage ../development/compilers/zasm {};
+
+  yuzu = libsForQt5.callPackage ../misc/emulators/yuzu { };
 
   zbackup = callPackage ../tools/backup/zbackup {};
 
