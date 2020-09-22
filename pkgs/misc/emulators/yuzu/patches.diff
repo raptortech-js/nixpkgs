@@ -1,0 +1,46 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 45bd03a65..3c30d5775 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -159,13 +159,13 @@ macro(yuzu_find_packages)
+     # Capitalization matters here. We need the naming to match the generated paths from Conan
+     set(REQUIRED_LIBS
+     #    Cmake Pkg Prefix  Version     Conan Pkg
+-        "Boost             1.73        boost/1.73.0"
+-        "Catch2            2.13        catch2/2.13.0"
+-        "fmt               7.0         fmt/7.0.3"
++        "Boost             1.72        boost/1.73.0"
++        "Catch2            2.12        catch2/2.13.0"
++        "fmt               6.2         fmt/7.0.3"
+     # can't use until https://github.com/bincrafters/community/issues/1173
+         #"libzip            1.5         libzip/1.5.2@bincrafters/stable"
+         "lz4               1.8         lz4/1.9.2"
+-        "nlohmann_json     3.8         nlohmann_json/3.8.0"
++        "nlohmann_json     3.7         nlohmann_json/3.8.0"
+         "ZLIB              1.2         zlib/1.2.11"
+         "zstd              1.4         zstd/1.4.5"
+     )
+@@ -188,7 +188,12 @@ macro(yuzu_find_packages)
+             list(APPEND CONAN_REQUIRED_LIBS ${PACKAGE_CONAN})
+         else()
+             # Set a legacy findPackage.cmake style PACKAGE_LIBRARIES variable for subprojects that rely on this
+-            set(${PACKAGE_PREFIX}_LIBRARIES "${PACKAGE_PREFIX}::${PACKAGE_PREFIX}")
++			if (${PACKAGE_PREFIX} MATCHES "zsdt")
++				set(${PACKAGE_PREFIX}_LIBRARIES "zstd")
++				add_library(zstd::zstd UNKNOWN IMPORTED)
++			else()
++	            set(${PACKAGE_PREFIX}_LIBRARIES "${PACKAGE_PREFIX}::${PACKAGE_PREFIX}")
++	        endif()
+         endif()
+     endforeach()
+     unset(FN_FORCE_REQUIRED)
+diff --git a/src/common/CMakeLists.txt b/src/common/CMakeLists.txt
+index 5d54516eb..ea0191c4b 100644
+--- a/src/common/CMakeLists.txt
++++ b/src/common/CMakeLists.txt
+@@ -192,4 +192,4 @@ create_target_directory_groups(common)
+ find_package(Boost 1.71 COMPONENTS context headers REQUIRED)
+ 
+ target_link_libraries(common PUBLIC ${Boost_LIBRARIES} fmt::fmt microprofile)
+-target_link_libraries(common PRIVATE lz4::lz4 zstd::zstd xbyak)
++target_link_libraries(common PRIVATE lz4::lz4 zstd xbyak)
