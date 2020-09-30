@@ -8,21 +8,16 @@ stdenv.mkDerivation rec {
       }); 
 
   pname = "yuzu";
-  version = "unstable-2019-05-03";
+  version = "unstable-2020-09-30";
 
-  #src = /home/jackie/foss/yuzu-mainline ;
   src = fetchFromGitHub {
     owner = "yuzu-emu";
     repo = "yuzu-nightly";
     fetchSubmodules = true;
     deepClone = true;  # Yuzu's CMake submodule check uses .git presence.
     branchName = "master";  # For nicer in-app version numbers.
-	rev = "53829d4cbd6cc84963191a483688d407ec6fe14d";
-	#rev = "969692325baf6c4dc85d4e347ac2b979bb1c97d3";
-    #rev = "1f72bb733f743d55ac890c990f0fefea9a0ef290";
-	#rev = "a2eb44db825a892cc2863bd1f5d0352c273ff0f0";
+	rev = "4d0ae1a17a031488eadfa9133dac157fb71900c0";
 	sha256 = "0j082ds356fdfx38ibmmlwzvpj2nm0202pmr1031w8sf0qx0d0cr";
-    #sha256 = "0v97f0mq2qr1r210rmf9s6lai1ikrki60bjwvlx9kbjgsnmv1z01"; # DEFINITELY wrong
   };
 
   patches = [ ./patches.diff ];
