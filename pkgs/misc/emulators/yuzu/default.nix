@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 	#rev = "969692325baf6c4dc85d4e347ac2b979bb1c97d3";
     #rev = "1f72bb733f743d55ac890c990f0fefea9a0ef290";
 	#rev = "a2eb44db825a892cc2863bd1f5d0352c273ff0f0";
-	sha256 = "16k9z4kynyry3sdp538wfs3pj7i0wjrnpswwcgp52j2sdjk632dh";
+	sha256 = "0j082ds356fdfx38ibmmlwzvpj2nm0202pmr1031w8sf0qx0d0cr";
     #sha256 = "0v97f0mq2qr1r210rmf9s6lai1ikrki60bjwvlx9kbjgsnmv1z01"; # DEFINITELY wrong
   };
 
