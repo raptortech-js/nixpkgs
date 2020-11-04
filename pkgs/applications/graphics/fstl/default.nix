@@ -1,17 +1,17 @@
-{ stdenv, fetchFromGitHub, mkDerivation, qtbase, mesa_glu }:
+{ stdenv, fetchFromGitHub, mkDerivation, cmake, qtbase, mesa_glu }:
 
 mkDerivation rec {
   pname = "fstl";
   version = "0.9.4";
 
-  buildInputs = [qtbase mesa_glu];
+  buildInputs = [qtbase mesa_glu cmake];
 
   prePatch = ''
     sed -i "s|/usr/bin|$out/bin|g" qt/fstl.pro
   '';
 
   preBuild = ''
-    qmake qt/fstl.pro
+    cmake
   '';
   
   postInstall = stdenv.lib.optionalString stdenv.isDarwin ''
